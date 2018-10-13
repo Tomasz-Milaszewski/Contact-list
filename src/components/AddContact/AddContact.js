@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './AddContact.css'
-
 class AddContact extends Component {
 
   static propTypes = {
@@ -10,44 +9,51 @@ class AddContact extends Component {
      * 
      * @param {string} title text written in the form field
      */
-    addTaskFunction: PropTypes.func
+    addContactFunction: PropTypes.func
   }
 
-  static defaultProps = {
-    addTaskFunction: title => console.log(`Trying to add task with title: ${title} `)
-  }
+//   static defaultProps = {
+//     addContactFunction: title => console.log(`Trying to add task with title: ${title} `)
+//   }
 
   state = {
-    taskTitle: '',
+    contactName: '',
+    contactSurname: '',
     error: null
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    if (this.state.taskTitle === '') {
+    if (this.state.contactName === '' || this.state.contactSurname === '') {
       this.setState({
-        error: new Error('Sorry we need task title to make it work')
+        error: new Error('Sorry, we need name and surname to make it work')
       })
       return;
     }
-    this.props.addTaskFunction(this.state.taskTitle);
-    this.setState({ taskTitle: '', error: null })
+    this.props.addContactFunction(this.state.contactName, this.state.contactSurname);
+    this.setState({ contactName: '', contactSurname: '', error: null })
   }
 
-  handleChange = event => {
+  handleChangeName = event => {
     this.setState({
-      taskTitle: event.target.value
+      contactName: event.target.value,
+    })
+  }
+  handleChangeSurname = event => {
+    this.setState({
+      contactSurname: event.target.value,
     })
   }
 
   render() {
     return (
-      <form className="AddTaskForm" onSubmit={this.handleSubmit}>
+      <form className="AddContact" onSubmit={this.handleSubmit}>
         {
           this.state.error && <p>{this.state.error.message}</p>
         }
-        <input value={this.state.taskTitle} onChange={this.handleChange}/>
-        <button>Add task</button>
+        <input value={this.state.contactName} onChange={this.handleChangeName}/>
+        <input value={this.state.contactSurname} onChange={this.handleChangeSurname}/>
+        <button>Add contact</button>
       </form>
     )
   }

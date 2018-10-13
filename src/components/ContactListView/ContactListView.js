@@ -6,39 +6,15 @@ import './ContactListView.css'
 class ContactListView extends Component {
 
   state = {
-    tasks: JSON.parse(localStorage.getItem('tasks') || '[]'),
+    tasks: JSON.parse(localStorage.getItem('contacts') || '[]'),
     previousState: null
   }
 
-  toggleTaskImportant = taskId => {
+  removeContact = contactId => {
     this.setState({
       previousState: this.state,
-      tasks: this.state.tasks.map(
-        task => taskId !== task.id ? task : {
-          ...task,
-          isImportant: !task.isImportant
-        }
-      )
-    })
-  }
-
-  toggleTaskDone = taskId => {
-    this.setState({
-      previousState: this.state,
-      tasks: this.state.tasks.map(
-        task => taskId !== task.id ? task : {
-          ...task,
-          isDone: !task.isDone
-        }
-      )
-    })
-  }
-
-  removeTask = taskId => {
-    this.setState({
-      previousState: this.state,
-      tasks: this.state.tasks.filter(
-        task => taskId !== task.id
+      contacts: this.state.contacts.filter(
+        contact => contactId !== contact.id
       )
     })
   }
@@ -47,44 +23,33 @@ class ContactListView extends Component {
     this.setState(this.state.previousState)
   }
 
-  addTask = title => {
+  addContact = (name, surname) => {
     this.setState({
       previousState: this.state,
-      tasks: this.state.tasks.concat({
+      contacts: this.state.contacts.concat({
         id: Date.now(),
-        title: title,
-        isDone: false,
-        isImportant: false
+        name: name,
+        surname: surname
       })
     })
   }
 
   componentDidUpdate() {
-    localStorage.setItem('tasks', JSON.stringify(this.state.tasks))
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
   }
 
   render() {
     return (
       <div>
-        <h1>Awesome ToDo</h1>
-        <AddTaskForm addTaskFunction={this.addTask} />
+        <h1>Contact List</h1>
+        <AddContact addContactFunction={this.addContact} />
         <Button handleClick={this.handleUndo}>Undo</Button>
         <ul>
           {
-            this.state.tasks.map(
-              task => (
-                <li key={task.id}>
-                  <StarButton isActive={task.isImportant} handleClick={() => this.toggleTaskImportant(task.id)} />
-                  {
-                    task.isDone ? <del>{task.title}</del> : task.title
-                  }
-                  <Button 
-                    handleClick={() => this.toggleTaskDone(task.id)} 
-                    children={'toggle done'}
-                  />
-                  <Button handleClick={() => this.removeTask(task.id)}>
-                    remove
-                  </Button>
+            this.state.contacts.map(
+              contact => (
+                <li key={contact.id}>
+                  <Button handleClick={() => this.removeContact(contact.id)}>Remove Contact</Button>
                 </li>
               )
             )
