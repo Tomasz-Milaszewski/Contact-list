@@ -6,7 +6,7 @@ import './ContactListView.css'
 class ContactListView extends Component {
 
   state = {
-    tasks: JSON.parse(localStorage.getItem('contacts') || '[]'),
+    contacts: JSON.parse(localStorage.getItem('contacts') || '[]'),
     previousState: null
   }
 
@@ -49,6 +49,7 @@ class ContactListView extends Component {
             this.state.contacts.map(
               contact => (
                 <li key={contact.id}>
+                  {contact.name} {contact.surname}
                   <Button handleClick={() => this.removeContact(contact.id)}>Remove Contact</Button>
                 </li>
               )
