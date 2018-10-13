@@ -4,17 +4,8 @@ import './AddContact.css'
 class AddContact extends Component {
 
     static propTypes = {
-        /**
-         * Function called during form submission 
-         * 
-         * @param {string} title text written in the form field
-         */
         addContactFunction: PropTypes.func
     }
-
-    //   static defaultProps = {
-    //     addContactFunction: title => console.log(`Trying to add task with title: ${title} `)
-    //   }
 
     state = {
         contactName: '',
