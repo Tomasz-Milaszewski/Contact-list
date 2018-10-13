@@ -1,0 +1,8 @@
+.ContactListView-list-item-li {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.ContactListView-list-item-name {
+    width: 200px;
+}

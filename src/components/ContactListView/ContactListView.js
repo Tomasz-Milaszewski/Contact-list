@@ -48,8 +48,8 @@ class ContactListView extends Component {
           {
             this.state.contacts.map(
               contact => (
-                <li key={contact.id}>
-                  <p>{contact.name} {contact.surname}</p>
+                <li key={contact.id} className="ContactListView-list-item-li">
+                  <p className="ContactListView-list-item-name">{contact.name} {contact.surname}</p>
                   <Button handleClick={() => this.removeContact(contact.id)}>Remove</Button>
                 </li>
               )
