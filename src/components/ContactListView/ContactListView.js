@@ -41,21 +41,22 @@ class ContactListView extends Component {
   render() {
     return (
       <div>
-        <h1>Contact List</h1>
+        <h1>Add Contact</h1>
         <AddContact addContactFunction={this.addContact} />
-        <Button handleClick={this.handleUndo}>Undo</Button>
+        <h1>Contact List</h1>
         <ul>
           {
             this.state.contacts.map(
               contact => (
                 <li key={contact.id}>
-                  {contact.name} {contact.surname}
-                  <Button handleClick={() => this.removeContact(contact.id)}>Remove Contact</Button>
+                  <p>{contact.name} {contact.surname}</p>
+                  <Button handleClick={() => this.removeContact(contact.id)}>Remove</Button>
                 </li>
               )
             )
           }
         </ul>
+        <Button handleClick={this.handleUndo} className="ContactListView-undo-button">Undo</Button>
       </div>
     )
   }
